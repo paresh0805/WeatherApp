@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            height: 100vh;
+        }
+        #weather-app{
+            padding:20px;
+            background-color: rgb(228, 160, 34);
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+            text-align: center;
+        }
+        #city{
+            padding:10px;
+            width: 100%;
+            border-radius: 5px;
+            border:none;
+            margin-bottom: 10px;
+            box-sizing:border-box;
+
+        }
+        #search-btn{
+            padding:10px;
+            background-color: rgb(149, 180, 22);
+            cursor: pointer;
+        }
+        #search-btn:hover{
+            background-color: rgb(198, 250, 65);
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="weather-app">
+        <h1>Weather App</h1>
+        <input type="text" id="city" placeholder="Enter city name">
+        <button id="search-btn">Get Weather</button>
+        <p id="weather"></p>
+    </div>
+    <script>
+        function getWeather(){
+            const city=document.getElementById("city").value;
+            const apiKey="6377864a09a403d474ee27ff759dbe47";
+            const url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
+            fetch(url).then(response=>response.json()).then(data=>{
+                console.log(data);
+                document.getElementById("weather").innerText="Temp: "+data.main.temp+"°C\n"+"Condition:"+data.weather[0].description;
+            });
+        }
+        document.getElementById("search-btn").addEventListener("click", getWeather);
+        
+    </script>
+</body>
+</html>
